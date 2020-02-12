@@ -10,7 +10,7 @@ $(document).ready(function() {
     event.preventDefault();
     $("form").hide();
     $("#results").show();
-    const searchRadius = parseFloat($("input#distance").val());
+    const searchRadius = parseFloat($("input#distance").val()); 
     let location = $("input#location").val();
     const locationArray = location.split("");
     const excludedChars = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "=", "-", "_", "?", "/", ">", "<", ":", ";", "'", ",", "`", "~"];
