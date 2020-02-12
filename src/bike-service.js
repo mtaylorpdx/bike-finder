@@ -6,6 +6,7 @@ export class BikeService {
       return jsonifiedResponse;
     } catch(error) {
       console.error("There was an error handling your request: " + error.message);
+      return false;
     }
   }
 }
