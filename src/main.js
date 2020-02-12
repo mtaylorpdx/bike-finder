@@ -1,7 +1,9 @@
+import { BikeService } from './bike-service.js';
 import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
+
 
 $(document).ready(function() {
   $("form").submit(function(event) {
@@ -10,7 +12,6 @@ $(document).ready(function() {
     $("#results").show();
     const searchRadius = parseFloat($("input#distance").val());
     let location = $("input#location").val();
-    console.log(location);
     const locationArray = location.split("");
     const excludedChars = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "=", "-", "_", "?", "/", ">", "<", ":", ";", "'", ",", "`", "~"];
     for (let i=0; i<locationArray.length; i++) {
@@ -21,10 +22,10 @@ $(document).ready(function() {
     location = locationArray.join("");
 
     (async () => {
-      let response = await fetch(`https://bikeindex.org/api/v3/search?page=1&per_page=10&location=${location}&distance=${searchRadius}&stolenness=proximity&app_id=${process.env.API_KEY}`);
-      let jsonifiedResponse = await response.json();
-      getElements(jsonifiedResponse);
-      console.log(jsonifiedResponse);
+      let bikeService = new BikeService();
+      const response = await bikeService.getStolenBikeByLocation(location, searchRadius);
+      getElements(response);
+      console.log(response);
     })();
 
     const getElements = function(response) {
