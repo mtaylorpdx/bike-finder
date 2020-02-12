@@ -1,0 +1,16 @@
+
+#results {
+  display: none;
+}
+
+.row {
+  height: 220px;
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  height: 50px;
+}

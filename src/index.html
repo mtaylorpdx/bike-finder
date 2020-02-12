@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stolen Bike Finder</title>
+</head>
+<body>
+  <div class="container">
+
+    <div id="inputs">
+      <div class="jumbotron">
+        <h1>How many bikes are stolen near you?</h1>
+      </div>
+      <form>
+        <label for="distance">Enter a search radius, in miles:</label>
+        <input type="number" class="form-control" id="distance" name="distance" required>
+        <label for="zipcode">Enter a location zipcode to search:</label>
+        <input type="number" class="form-control" id="zipcode" name="zipcode" required> 
+        <button type="submit" class="btn btn-block" id="findBike">Find bikes!</button>
+      </form>
+    </div>
+
+    <div id="results">
+      <div class="row title">
+        <div class="col-md-4">
+          <h3>Bike:</h3>
+        </div>
+        <div class="col-md-4">
+          <h3>Date stolen:</h3>
+        </div>
+        <div class="col-md-4">
+          <h3>Image of bike:</h3>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</body>
+</html>
