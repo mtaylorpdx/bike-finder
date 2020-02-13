@@ -25,7 +25,6 @@ $(document).ready(function() {
       let bikeService = new BikeService();
       const response = await bikeService.getStolenBikeByLocation(location, searchRadius);
       getElements(response);
-      console.log(response);
     })();
 
     const getElements = function(response) {
@@ -62,7 +61,6 @@ $(document).ready(function() {
           let unix_timestamp = `${bike.date_stolen}`;
           let date = new Date(unix_timestamp *1000);
           let bikeThumb;
-          let bikeID = bike.id
           if (bike.thumb != null) {
             bikeThumb = bike.thumb;
           } else {
