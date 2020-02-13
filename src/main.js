@@ -76,8 +76,7 @@ $(document).ready(function() {
     };
     // Logic for random quote generator:
     let request = new XMLHttpRequest();
-    const quoteURL = `http://api.forismatic.com/api/1.0/method=getQuote&format=json&lang=en
-    `;
+    const quoteURL = `http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`;
   
     request.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
@@ -89,7 +88,7 @@ $(document).ready(function() {
     request.send();
 
     const returnQuote = function(quoteResponse) {
-      console.log(quoteResponse);
+      $(".jumbotron").append(`<p>"${quoteResponse.quoteText}" ~ ${quoteResponse.quoteAuthor}</p>`);
     }
     // function getCoordinates() {
     //   return new Promise(function(resolve, reject) {
