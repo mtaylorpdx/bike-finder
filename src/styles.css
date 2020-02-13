@@ -1,6 +1,20 @@
+body {
+  color: #111111;
+  background-color: #F5F5F5;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.container {
+  margin: 5%;
+}
 
 #results {
   display: none;
+}
+
+#bikeStats {
+  max-height: 700px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .row {
@@ -13,4 +27,41 @@
 
 .title {
   height: 50px;
+}
+
+.title h3 {
+  height: 50px;
+  text-decoration: underline;
+}
+
+.card {
+  border: 2px solid #111111;
+  padding: 2%;
+  background-color: transparent;
+}
+
+#snapshot {
+  background-color: lightseagreen;
+  margin-top: 4%;
+}
+
+.jumbotron {
+  background-color: lightseagreen;
+}
+
+#photos {
+  text-align: center;
+}
+
+button.btn {
+  border: 2px solid #111111;
+  margin-top: 3%;
+  color: #111111;
+}
+
+button.btn:hover {
+  border: 2px solid #f5f5f5;
+  margin-top: 3%;
+  color: #111111;
+  background-color: lightseagreen;
 }
