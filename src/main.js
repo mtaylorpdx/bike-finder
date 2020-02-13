@@ -22,7 +22,8 @@ $(document).ready(function() {
       let bikeService = new BikeService();
       const response = await bikeService.getStolenBikeByLocation(location, searchRadius);
       getElements(response);
-    })();  
+    })();
+
     const getElements = function(response) {
       if (response === false) {
         $("#results").append(`<div class='row'><div class="col-md-12">There was an error. <a href='index.html'>Click here</a> to try again.</div></div>`);
@@ -73,6 +74,23 @@ $(document).ready(function() {
         });
       }
     };
+    // Logic for random quote generator:
+    let request = new XMLHttpRequest();
+    const quoteURL = `http://api.forismatic.com/api/1.0/method=getQuote&format=json&lang=en
+    `;
+  
+    request.onreadystatechange = function() {
+      if (this.readyState === 4 && this.status === 200) {
+        const quoteResponse = JSON.parse(this.responseText);
+        returnQuote(quoteResponse);
+      }
+    }
+    request.open("GET", quoteURL, true);
+    request.send();
+
+    const returnQuote = function(quoteResponse) {
+      console.log(quoteResponse);
+    }
     // function getCoordinates() {
     //   return new Promise(function(resolve, reject) {
     //     let request = new XMLHttpRequest();
