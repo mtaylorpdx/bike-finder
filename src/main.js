@@ -18,13 +18,11 @@ $(document).ready(function() {
       }
     } 
     location = locationArray.join("");
-
     (async () => {
       let bikeService = new BikeService();
       const response = await bikeService.getStolenBikeByLocation(location, searchRadius);
       getElements(response);
-    })();
-
+    })();  
     const getElements = function(response) {
       if (response === false) {
         $("#results").append(`<div class='row'><div class="col-md-12">There was an error. <a href='index.html'>Click here</a> to try again.</div></div>`);
@@ -60,8 +58,7 @@ $(document).ready(function() {
         }
         $(".snapshot").html(manufacturer);
         $(".maxFreq").html(maximumFrequency);
-        $(".totalStolenBikes").html(manufacturerArray.length);
-        
+        $(".totalStolenBikes").html(manufacturerArray.length);                      
         // Logic for bike list:
         response.bikes.forEach(function(bike) {
           let unix_timestamp = `${bike.date_stolen}`;
@@ -76,38 +73,29 @@ $(document).ready(function() {
         });
       }
     };
-    let request = new XMLHttpRequest();
-    request.open('GET', `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${process.env.THIRD_API_KEY}`, true);
-    request.onload = function() {
-      if (request.status === 200) {
-        let data = JSON.parse(request.responseText);
-        let coordinates = data.results[0].formatted;
-        console.log(coordinates);
-        return coordinates;
-      } else if (request.status <= 500) {
-        let data = JSON.parse(request.responseText);
-        return data.status.message;
-      } else {
-        return "server error";
-      }
-    };
-    request.onerror = function() {
-      $("#results").append(`<div class='row'><div class="col-md-12">There was an error. <a href='index.html'>Click here</a> to try again.</div></div>`);
-    };
-    request.send();
+    // function getCoordinates() {
+    //   return new Promise(function(resolve, reject) {
+    //     let request = new XMLHttpRequest();
+    //     let coordURL = `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${process.env.THIRD_API_KEY}`;
+
+    //     request.onload = function() {
+    //       if (this.status === 200) {
+    //         resolve(request.response);
+    //       } else {
+    //         reject(Error(request.statusText));
+    //       }
+    //     };
+    //     request.open("GET", coordURL, true);
+    //     request.send();
+    //   });
+    // }
+
+    // getCoordinates()
+    //   .then(function(response) {
+    //     let data = JSON.parse(response);
+    //     let coordinates = data.results[0].geometry;
+    //     return coordinates;
+    //   })
+      
   });
 });
-
-
-
-
-
-
-// let latLng = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.ANOTHER_API_KEY}`
-// let map;
-// function initMap() {
-//   map = new google.maps.Map(document.getElementById('map'), {
-//     center: {lat: -34.397, lng: 150.644},
-//     zoom: 8
-//   });
-// }
