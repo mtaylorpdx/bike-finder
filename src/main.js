@@ -1,4 +1,5 @@
 import { BikeService } from './bike-service.js';
+import { QuoteService } from './quote-service.js';
 import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,10 +19,17 @@ $(document).ready(function() {
       }
     } 
     location = locationArray.join("");
+
     (async () => {
       let bikeService = new BikeService();
       const response = await bikeService.getStolenBikeByLocation(location, searchRadius);
       getElements(response);
+    })();
+
+    (async () => {
+      let quoteService = new QuoteService();
+      const quoteResponse = await quoteService.getRandomQuote();
+      returnQuote(quoteResponse);
     })();
 
     const getElements = function(response) {
@@ -75,44 +83,10 @@ $(document).ready(function() {
       }
     };
     // Logic for random quote generator:
-    let request = new XMLHttpRequest();
-    const quoteURL = `http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`;
-  
-    request.onreadystatechange = function() {
-      if (this.readyState === 4 && this.status === 200) {
-        const quoteResponse = JSON.parse(this.responseText);
-        returnQuote(quoteResponse);
-      }
-    }
-    request.open("GET", quoteURL, true);
-    request.send();
-
     const returnQuote = function(quoteResponse) {
-      $(".jumbotron").append(`<p>"${quoteResponse.quoteText}" ~ ${quoteResponse.quoteAuthor}</p>`);
-    }
-    // function getCoordinates() {
-    //   return new Promise(function(resolve, reject) {
-    //     let request = new XMLHttpRequest();
-    //     let coordURL = `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${process.env.THIRD_API_KEY}`;
-
-    //     request.onload = function() {
-    //       if (this.status === 200) {
-    //         resolve(request.response);
-    //       } else {
-    //         reject(Error(request.statusText));
-    //       }
-    //     };
-    //     request.open("GET", coordURL, true);
-    //     request.send();
-    //   });
-    // }
-
-    // getCoordinates()
-    //   .then(function(response) {
-    //     let data = JSON.parse(response);
-    //     let coordinates = data.results[0].geometry;
-    //     return coordinates;
-    //   })
-      
+      if (quoteResponse.text != "undefined" && quoteResponse.quoteAuthor != "undefined") {
+        $(".jumbotron").append(`<p>"${quoteResponse.quoteText}" ~ ${quoteResponse.quoteAuthor}</p>`);
+      }
+    };
   });
 });
