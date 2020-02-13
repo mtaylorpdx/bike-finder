@@ -65,3 +65,7 @@ button.btn:hover {
   color: #111111;
   background-color: lightseagreen;
 }
+
+#map {
+  height: 100%;
+}

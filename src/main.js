@@ -3,6 +3,7 @@ import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
+import { request } from 'https';
 
 
 $(document).ready(function() {
@@ -70,5 +71,38 @@ $(document).ready(function() {
         });
       }
     };
+    let request = new XMLHttpRequest();
+    request.open('GET', `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${THIRD-API-KEY}`, true);
+    request.onload = function() {
+      if (request.status === 200) {
+        let data = JSON.parse(request.responseText);
+        let coordinates = data.results[0].formatted;
+        console.log(coordinates);
+        return coordinates;
+      } else if (request.status <= 500) {
+        let data = JSON.parse(request.responseText);
+        return data.status.message;
+      } else {
+        return "server error";
+      }
+    };
+    request.onerror = function() {
+      $("#results").append(`<div class='row'><div class="col-md-12">There was an error. <a href='index.html'>Click here</a> to try again.</div></div>`);
+    };
+    request.send();
   });
 });
+
+
+
+
+
+
+// let latLng = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.ANOTHER_API_KEY}`
+// let map;
+// function initMap() {
+//   map = new google.maps.Map(document.getElementById('map'), {
+//     center: {lat: -34.397, lng: 150.644},
+//     zoom: 8
+//   });
+// }
