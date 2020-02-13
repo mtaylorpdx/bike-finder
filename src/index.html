@@ -12,8 +12,8 @@
       <form>
         <label for="distance">Enter a search radius, in miles:</label>
         <input type="number" class="form-control" id="distance" name="distance" required>
-        <label for="location">Enter a location zipcode to search:</label>
-        <input type="text" class="form-control" id="location" name="location" required> 
+        <label for="location">Enter a location to search:</label>
+        <input type="text" class="form-control" id="location" name="location" placeholder="Street Address, City, State Zipcode, or any combination of the above!" required> 
         <button type="submit" class="btn btn-block" id="findBike">Find bikes!</button>
       </form>
     </div>
@@ -33,7 +33,7 @@
       </div>
       <div class="card" id="snapshot">
         <h1>The most commonly stolen bike manufacturer in your area is <span class="snapshot"></span>.</h1>
-        <p>In the most recent 100 bikes stolen, <span class="maxFreq"></span> were <span class="snapshot"></span> bikes.</p>
+        <p>In the most recent <span class="totalStolenBikes"></span> bikes stolen, <span class="maxFreq"></span> were <span class="snapshot"></span> bikes.</p>
       </div>
       <div id="map"></div>
     </div>  

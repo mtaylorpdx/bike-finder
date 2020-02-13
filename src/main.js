@@ -3,14 +3,11 @@ import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
-import { request } from 'https';
-
 
 $(document).ready(function() {
   $("form").submit(function(event) {
     event.preventDefault();
     $("#inputs").hide();
-    $("#results").show();
     const searchRadius = parseFloat($("input#distance").val()); 
     let location = $("input#location").val();
     const locationArray = location.split("");
@@ -31,9 +28,16 @@ $(document).ready(function() {
     const getElements = function(response) {
       if (response === false) {
         $("#results").append(`<div class='row'><div class="col-md-12">There was an error. <a href='index.html'>Click here</a> to try again.</div></div>`);
+        $("#bikeStats").hide();
+        $("#snapshot").hide();
+        $("#results").show();
       } else if (response.bikes.length === 0) {
         $("#results").append(`<div class='row'><div class="col-md-12">There are no stolen bikes in your requested location. <a href='index.html'>Click here</a> to try another location.</div></div>`);
+        $("#bikeStats").hide();
+        $("#snapshot").hide();
+        $("#results").show();
       } else if (response.bikes.length > 0) {
+        $("#results").show();
         // Logic for most commonly stolen manufacturer:
         let manufacturerArray = [];
         response.bikes.forEach(function(bike){ 
@@ -56,7 +60,8 @@ $(document).ready(function() {
         }
         $(".snapshot").html(manufacturer);
         $(".maxFreq").html(maximumFrequency);
-
+        $(".totalStolenBikes").html(manufacturerArray.length);
+        
         // Logic for bike list:
         response.bikes.forEach(function(bike) {
           let unix_timestamp = `${bike.date_stolen}`;
@@ -72,7 +77,7 @@ $(document).ready(function() {
       }
     };
     let request = new XMLHttpRequest();
-    request.open('GET', `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${THIRD-API-KEY}`, true);
+    request.open('GET', `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${process.env.THIRD_API_KEY}`, true);
     request.onload = function() {
       if (request.status === 200) {
         let data = JSON.parse(request.responseText);

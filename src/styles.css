@@ -69,3 +69,7 @@ button.btn:hover {
 #map {
   height: 100%;
 }
+
+label {
+  margin-top: 4%;
+}
